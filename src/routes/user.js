@@ -1,6 +1,6 @@
 import express from 'express'
 import { signup, login, logout } from '../controllers/user.js'
-import { sessionExtractor } from '../middlewares/sessionExtractor.js'
+import sessionExtractor from '../middlewares/sessionExtractor.js'
 
 const userRouter = express.Router()
 

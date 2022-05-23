@@ -1,7 +1,7 @@
-import User from '../models/user.js'
+import { User } from '../models/index.js'
 import bcrypt from 'bcrypt'
 
-const hashPassword = async (password) => {
+export const hashPassword = async (password) => {
 	const salt = await bcrypt.genSalt(10)
 	return await bcrypt.hash(password, salt)
 }
@@ -15,7 +15,8 @@ export const signup = async (request, response, next) => {
 			password: hashedPassword
 		})
 
-		const { password: savedPassword, ...userData } = registeredUser.dataValues
+		const { userData } = registeredUser.dataValues
+		delete userData.password
 
 		response.status(200).json(userData)
 	} catch (error) {
@@ -29,10 +30,12 @@ export const login = async (request, response, next) => {
 		const findedUser = await User.findOne({
 			where: { email }
 		})
+
 		const isPasswordValid = await bcrypt.compare(password, findedUser?.password)
 		if (!isPasswordValid) throw Error('Email or password incorrect')
 
-		const { password: savedPassword, ...userData } = findedUser.dataValues
+		const userData = findedUser.dataValues
+		delete userData.password
 
 		request.session.userId = userData.id
 

@@ -1,6 +1,6 @@
-import User from '../models/user.js'
+import { User } from '../models/index.js'
 
-export const sessionExtractor = async (request, response, next) => {
+const sessionExtractor = async (request, response, next) => {
 	try {
 		const userId = request?.session?.userId
 		if (!userId) throw new Error('User not found')
@@ -13,3 +13,5 @@ export const sessionExtractor = async (request, response, next) => {
 		next(error)
 	}
 }
+
+export default sessionExtractor

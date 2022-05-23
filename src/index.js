@@ -4,6 +4,7 @@ dotenv.config()
 import { sequelize } from './db.js'
 
 import express from 'express'
+import fileupload from 'express-fileupload'
 import cors from 'cors'
 import session from 'express-session'
 import { sessionStore } from './session.js'
@@ -11,12 +12,15 @@ import logger from './logger.js'
 import notFound from './middlewares/notFound.js'
 import errorHandler from './middlewares/errorHandler.js'
 import userRouter from './routes/user.js'
+import systemRouter from './routes/system.js'
+import fileRouter from './routes/file.js'
 
 const { APP_PORT } = process.env
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(fileupload())
 app.use(logger)
 app.use(session({
 	key: 'session_cookie_name',
@@ -25,7 +29,11 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+
 app.use('/api/user', userRouter)
+app.use('/api/system', systemRouter)
+app.use('/api/file', fileRouter)
+
 app.use(notFound)
 app.use(errorHandler)
 
