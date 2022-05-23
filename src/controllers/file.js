@@ -3,7 +3,6 @@ import { File } from '../models/index.js'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
 import { createDirectorie } from '../utils.js'
-import fs from 'fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
