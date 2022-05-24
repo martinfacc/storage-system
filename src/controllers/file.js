@@ -20,10 +20,10 @@ export const uploadFile = async (request, response, next) => {
 
 		const registeredFile = await File.create({ extension, systemId: system.id }, { transaction })
 
-		createDirectorie(storagePath + '/' + system.name)
+		// createDirectorie(storagePath + '/' + system.name)
 
 		const filename = `${registeredFile.id}.${extension}`
-		file.mv(path.join(storagePath, system.name, filename))
+		file.mv(path.join(storagePath, filename))
 
 		const fileData = registeredFile.dataValues
 
@@ -51,7 +51,9 @@ export const getFile = async (request, response, next) => {
 		// const findedFile = data.find(file => file.id === id)
 		const findedFile = await File.findByPk(id)
 		if (!findedFile) throw Error('File not found')
-		const filepath = storagePath + '/System 2/' + findedFile.id + '.' + findedFile.extension
+		// const filepath = storagePath + '/System 2/' + findedFile.id + '.' + findedFile.extension
+		const filepath = storagePath + '/' + findedFile.id + '.' + findedFile.extension
+
 		response.sendFile(filepath)
 	} catch (error) {
 		next(error)
