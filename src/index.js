@@ -18,7 +18,8 @@ import fileRouter from './routes/file.js'
 const { APP_PORT } = process.env
 const app = express()
 
-const corsOpts = {
+
+app.use(cors({
 	origin: '*',
 
 	methods: [
@@ -29,9 +30,7 @@ const corsOpts = {
 	allowedHeaders: [
 		'Content-Type',
 	],
-}
-
-app.use(cors(corsOpts));
+}))
 app.use(express.json())
 app.use(fileupload())
 app.use(logger)
