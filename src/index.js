@@ -14,6 +14,7 @@ import errorHandler from './middlewares/errorHandler.js'
 import userRouter from './routes/user.js'
 import systemRouter from './routes/system.js'
 import fileRouter from './routes/file.js'
+import bodyParser from 'body-parser'
 
 const { APP_PORT } = process.env
 const app = express()
@@ -41,6 +42,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+app.use(bodyParser.json({ limit: '10mb' }))
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
 app.use('/api/user', userRouter)
 app.use('/api/system', systemRouter)
