@@ -43,7 +43,7 @@ app.use(session({
 	saveUninitialized: false
 }))
 app.use(bodyParser.json({ limit: '10mb' }))
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
 app.use('/api/user', userRouter)
 app.use('/api/system', systemRouter)
