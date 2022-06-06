@@ -30,6 +30,7 @@ app.use(cors({
 
 	allowedHeaders: [
 		'Content-Type',
+		'system-identifier-authorization'
 	],
 }))
 app.use(express.json())
