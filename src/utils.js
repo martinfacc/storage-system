@@ -1,14 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-
-export const createDirectorie = (pathname) => {
-	const __dirname = path.resolve()
-	fs.mkdir(path.resolve(__dirname, pathname), { recursive: true }, (error) => {
-		if (error) console.error(error)
-		else console.log('Success')
-	})
-}
-
 export const mimeTypes = {
 	'.aac': 'audio/aac',
 	'.abw': 'application/x-abiword',

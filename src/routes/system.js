@@ -1,5 +1,10 @@
 import express from 'express'
-import { getSystem, createSystem, getSystems, deleteSystem } from '../controllers/system.js'
+import {
+	getSystem,
+	createSystem,
+	getSystems,
+	deleteSystem,
+} from '../controllers/system.js'
 import sessionExtractor from '../middlewares/sessionExtractor.js'
 
 const systemRouter = express.Router()

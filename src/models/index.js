@@ -7,16 +7,12 @@ import File from './file.js'
 
 System.hasMany(File, {
 	foreignKey: 'systemId',
-	sourceKey: 'id'
+	sourceKey: 'id',
 })
 File.belongsTo(System, {
 	foreignKey: 'systemId',
 	targetKey: 'id',
-	as: 'system'
+	as: 'system',
 })
 
-export {
-	User,
-	System,
-	File
-}
+export { User, System, File }

@@ -12,7 +12,7 @@ export const createSystem = async (request, response, next) => {
 	try {
 		const newSystem = request.body
 		const registeredSystem = await System.create({
-			...newSystem
+			...newSystem,
 		})
 
 		const { ...systemData } = registeredSystem.dataValues
@@ -53,13 +53,18 @@ export const deleteSystem = async (request, response, next) => {
 		const system = await System.findByPk(id, { transaction })
 		if (!system) throw Error('System not found')
 
-		const files = await File.findAll({ where: { systemId: system.id } }, { transaction })
-		await Promise.all(files.map(async file => file.destroy({ transaction })))
+		const files = await File.findAll(
+			{ where: { systemId: system.id } },
+			{ transaction }
+		)
+		await Promise.all(files.map(async (file) => file.destroy({ transaction })))
 
-		await Promise.all(files.map(async file => {
-			const name = file.id + '.' + file.extension
-			return fs.unlink(storagePath + '/' + name)
-		}))
+		await Promise.all(
+			files.map(async (file) => {
+				const name = file.id + '.' + file.extension
+				return fs.unlink(storagePath + '/' + name)
+			})
+		)
 
 		await system.destroy({ transaction })
 		await transaction.commit()

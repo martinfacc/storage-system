@@ -12,7 +12,7 @@ export const signup = async (request, response, next) => {
 		const hashedPassword = await hashPassword(newUser.password)
 		const registeredUser = await User.create({
 			...newUser,
-			password: hashedPassword
+			password: hashedPassword,
 		})
 
 		const { userData } = registeredUser.dataValues
@@ -28,7 +28,7 @@ export const login = async (request, response, next) => {
 	try {
 		const { email, password } = request.body
 		const findedUser = await User.findOne({
-			where: { email }
+			where: { email },
 		})
 
 		const isPasswordValid = await bcrypt.compare(password, findedUser?.password)

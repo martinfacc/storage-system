@@ -16,7 +16,10 @@ export const uploadFile = async (request, response, next) => {
 		const system = request.system
 		if (!file) throw new Error('No file was provided')
 		const extension = file.name.split('.').pop()
-		const registeredFile = await File.create({ extension, systemId: system.id }, { transaction })
+		const registeredFile = await File.create(
+			{ extension, systemId: system.id },
+			{ transaction }
+		)
 		// createDirectorie(storagePath + '/' + system.name)
 		const filename = `${registeredFile.id}.${extension}`
 		file.mv(path.join(storagePath, filename))
@@ -57,7 +60,8 @@ export const deleteFile = async (request, response, next) => {
 		const { name } = request.params
 		const id = name.split('.')[0]
 		const findedFile = await File.findByPk(id)
-		if (!findedFile || findedFile.systemId !== request.system.id) throw Error('File not found')
+		if (!findedFile || findedFile.systemId !== request.system.id)
+			throw Error('File not found')
 		await File.destroy({ where: { id } }, { transaction })
 		await fs.unlink(storagePath + '/' + name)
 		await transaction.commit()
@@ -67,5 +71,3 @@ export const deleteFile = async (request, response, next) => {
 		next(error)
 	}
 }
-
-

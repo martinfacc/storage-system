@@ -1,24 +1,24 @@
 const errorDictionary = {
-	'CastError': {
+	CastError: {
 		status: 400,
-		message: 'Invalid data'
+		message: 'Invalid data',
 	},
-	'ValidationError': {
+	ValidationError: {
 		status: 400,
-		message: 'Invalid data'
+		message: 'Invalid data',
 	},
-	'Unauthorized': {
+	Unauthorized: {
 		status: 401,
-		message: 'Unauthorized'
+		message: 'Unauthorized',
 	},
-	'JsonWebTokenError': {
+	JsonWebTokenError: {
 		status: 401,
-		message: 'Invalid token'
+		message: 'Invalid token',
 	},
-	'TokenExpiredError': {
+	TokenExpiredError: {
 		status: 401,
-		message: 'Invalid token'
-	}
+		message: 'Invalid token',
+	},
 }
 
 const errorHandler = (error, request, response) => {
@@ -29,11 +29,11 @@ const errorHandler = (error, request, response) => {
 	if (!errorElement) {
 		errorElement = {
 			status: 500,
-			message: 'Internal server error'
+			message: 'Internal server error',
 		}
 	}
 	response.status(errorElement.status).json({
-		error: errorElement.message
+		error: errorElement.message,
 	})
 }
 

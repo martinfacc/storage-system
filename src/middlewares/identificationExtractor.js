@@ -2,7 +2,8 @@ import { System } from '../models/index.js'
 
 const identificationExtractor = async (request, response, next) => {
 	try {
-		const systemIdentification = request.headers['system-identifier-authorization']
+		const systemIdentification =
+			request.headers['system-identifier-authorization']
 		if (!systemIdentification) throw new Error('Token not found')
 		// const system = await System.findOne({
 		// 	where: { id: systemIdentification }
