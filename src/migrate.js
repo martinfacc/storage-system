@@ -1,9 +1,15 @@
-import { sequelize } from './db.js'
+import { sequelize } from './database.js'
 import './models/index.js'
+import logger from './logger.js'
 
-sequelize.query('SET FOREIGN_KEY_CHECKS = 0', { raw: true }).then(() => {
-	sequelize.sync({ force: true })
-		.then(() => console.log('Migration complete'))
-		.catch(error => console.error('Migration error', error.name, { error }))
-})
+const migrate = async () => {
+	try {
+		await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
+		await sequelize.sync({ force: true })
+		logger.info('Migration has been completed successfully.')
+	} catch (error) {
+		logger.error('Migration error', error.name, error)
+	}
+}
 
+migrate()

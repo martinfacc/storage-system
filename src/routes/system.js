@@ -5,11 +5,11 @@ import {
 	getSystems,
 	deleteSystem,
 } from '../controllers/system.js'
-import sessionExtractor from '../middlewares/sessionExtractor.js'
+import authenticationExtractor from '../middlewares/authenticationExtractor.js'
 
 const systemRouter = express.Router()
 
-systemRouter.use(sessionExtractor)
+systemRouter.use(authenticationExtractor)
 
 systemRouter.get('/', getSystems)
 systemRouter.get('/:id', getSystem)

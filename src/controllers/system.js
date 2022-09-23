@@ -1,5 +1,5 @@
 import { System, File } from '../models/index.js'
-import { sequelize } from '../db.js'
+import { sequelize } from '../database.js'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
 import { promises as fs } from 'fs'

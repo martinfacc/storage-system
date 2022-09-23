@@ -1,9 +1,5 @@
-import User from './user.js'
 import System from './system.js'
 import File from './file.js'
-
-// Role.belongsToMany(Permission, { through: RolePermission, foreignKey: 'roleId', as: 'permissions' })
-// Permission.belongsToMany(Role, { through: RolePermission, foreignKey: 'permissionId', as: 'roles' })
 
 System.hasMany(File, {
 	foreignKey: 'systemId',
@@ -15,4 +11,4 @@ File.belongsTo(System, {
 	as: 'system',
 })
 
-export { User, System, File }
+export { System, File }

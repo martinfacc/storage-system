@@ -12,8 +12,8 @@ File.init(
 		extension: DataTypes.STRING,
 		systemId: {
 			type: DataTypes.UUID,
-			allowNull: false
-		}
+			allowNull: false,
+		},
 	},
 	{
 		sequelize,

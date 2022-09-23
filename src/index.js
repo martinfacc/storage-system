@@ -1,57 +1,38 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { sequelize } from './db.js'
+import { sequelize } from './database.js'
 import express from 'express'
 import fileupload from 'express-fileupload'
 import cors from 'cors'
-import session from 'express-session'
-import { sessionStore } from './session.js'
-import loggerMiddleware from './middlewares/logger.js'
+import bodyParser from 'body-parser'
 import notFound from './middlewares/notFound.js'
 import errorHandler from './middlewares/errorHandler.js'
-import userRouter from './routes/user.js'
-import systemRouter from './routes/system.js'
-import fileRouter from './routes/file.js'
-import bodyParser from 'body-parser'
+import appRouter from './routes/index.js'
 import logger from './logger.js'
+import { app, server } from './app.js'
 
 const { APP_PORT } = process.env
-const app = express()
 
 app.use(
 	cors({
 		origin: '*',
-
 		methods: ['GET', 'POST'],
-
 		allowedHeaders: ['Content-Type', 'system-identifier-authorization'],
 	})
 )
 app.use(fileupload())
-app.use(loggerMiddleware)
-app.use(
-	session({
-		key: 'session_cookie_name',
-		secret: 'session_cookie_secret',
-		store: sessionStore,
-		resave: false,
-		saveUninitialized: false,
-	})
-)
 
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(express.json())
 
-app.use('/api/user', userRouter)
-app.use('/api/system', systemRouter)
-app.use('/api/file', fileRouter)
+app.use('/', appRouter)
 
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(APP_PORT, () => {
+server.listen(APP_PORT, () => {
 	logger.info(`App listening on port ${APP_PORT}!`)
 	sequelize
 		.sync({ force: false })

@@ -1,6 +1,6 @@
-import Sequelize from 'sequelize'
 import dotenv from 'dotenv'
 dotenv.config()
+import Sequelize from 'sequelize'
 
 const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE } = process.env
 
