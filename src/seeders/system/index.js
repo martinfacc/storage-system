@@ -1,5 +1,5 @@
 import { System } from '../../models/index.js'
-import systems from './data.json'
+import systems from './data.js'
 
 const systemSeed = () => System.bulkCreate(systems)
 
