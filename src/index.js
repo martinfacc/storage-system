@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
+import { app, server } from './app.js'
 import { sequelize } from './database.js'
 import express from 'express'
 import fileupload from 'express-fileupload'
@@ -10,7 +10,6 @@ import notFound from './middlewares/notFound.js'
 import errorHandler from './middlewares/errorHandler.js'
 import appRouter from './routes/index.js'
 import logger from './logger.js'
-import { app, server } from './app.js'
 
 const { APP_PORT } = process.env
 
