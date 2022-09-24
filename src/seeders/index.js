@@ -1,6 +1,6 @@
 import { sequelize } from '../database.js'
 import '../models/index.js'
-import systemSeed from './system'
+import systemSeed from './system/index.js'
 import logger from '../logger.js'
 
 const seed = async () => {
