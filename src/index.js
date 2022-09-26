@@ -10,6 +10,7 @@ import notFound from './middlewares/notFound.js'
 import errorHandler from './middlewares/errorHandler.js'
 import appRouter from './routes/index.js'
 import logger from './logger.js'
+import colors from 'colors'
 
 const { APP_PORT } = process.env
 
@@ -33,8 +34,15 @@ app.use(errorHandler)
 
 server.listen(APP_PORT, () => {
 	logger.info(`App listening on port ${APP_PORT}!`)
+	console.log(colors.green(`App listening on port ${APP_PORT}!`))
 	sequelize
 		.sync({ force: false })
-		.then(() => logger.info('Connection has been established successfully.'))
-		.catch((err) => logger.error('Unable to connect to the database:', err))
+		.then(() => {
+			logger.info('Connection has been established successfully.')
+			console.log(colors.green('Connection has been established successfully.'))
+		})
+		.catch((err) => {
+			logger.error('Unable to connect to the database:', err)
+			console.log(colors.red('Unable to connect to the database:'), err.name)
+		})
 })
