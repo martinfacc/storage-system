@@ -17,6 +17,7 @@
 		"semi": ["error", "never"]
 	},
 	"globals": {
-		"process": true
+		"process": true,
+		"Buffer": true
 	}
 }

@@ -1,6 +1,9 @@
 .storage
 storage
 
+.random
+random
+
 # Logs
 logs
 *.log
